@@ -36,12 +36,15 @@ class Server:
         self.vk_api = self.vk.get_api()
 
     def send_msg(self, send_id, message, attachment):
-        self.vk_api.messages.send(
-            peer_id=send_id,
-            message=message,
-            random_id=random.randint(0, 10000000),
-            attachment=attachment
-        )
+        try:
+            self.vk_api.messages.send(
+                peer_id=send_id,
+                message=message,
+                random_id=random.randint(0, 10000000),
+                attachment=attachment
+            )
+        except vk_api.exceptions.ApiError:
+            print ("zanyatonahuy")
 
     def start(self):
         for event in self.long_poll.listen():
